@@ -1,0 +1,209 @@
+<!--1. Создайте HTML-страницу. Добавьте на страницу кнопку и поле ввода.-->
+<!--Стилизовать их на свое усмотрение.-->
+<!--Сделайте так, чтоб при нажатии на кнопку появлялось всплывающее окно с содержимым поля ввода.-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Popup Form</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+
+        .btn-open-Submit {
+            padding: 12px 24px;
+            font-size: 18px;
+            background-color: green;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-open-Submit:hover {
+            background-color: #4caf50;
+        }
+
+        .overlay-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .Submit-box {
+            background: #fff;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+            width: 450px;
+            text-align: center;
+            opacity: 0;
+            transform: scale(0.8);
+            animation: fadeInUp 0.5s ease-out forwards;
+        }
+
+        .form-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-label {
+            margin-bottom: 10px;
+            font-size: 16px;
+            color: #444;
+            text-align: left;
+        }
+
+        .form-input {
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .btn-submit,
+        .btn-close-Submit {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .btn-submit {
+            background-color: green;
+            color: #fff;
+        }
+
+        .btn-close-Submit {
+            margin-top: 12px;
+            background-color: #e74c3c;
+            color: #fff;
+        }
+
+        .btn-submit:hover,
+        .btn-close-Submit:hover {
+            background-color: #4caf50;
+        }
+
+        /* Keyframes for fadeInUp animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Animation for Submit */
+        .overlay-container.show {
+            display: flex;
+            opacity: 1;
+        }
+    </style>
+</head>
+
+
+<body>
+    <form>
+        <h2>The input format</h2>
+        Name:
+        <br>
+            <label>
+                <input class="form-input"
+                       type="text"
+                       placeholder="Enter Your Name"
+                       id='NameInput'>
+            </label>
+        <br>
+        Surname:
+        <br>
+            <label>
+                <input class="form-input"
+                       type="text"
+                       placeholder="Enter Your Surname"
+                       id='SurnameInput'>
+            </label>
+        <br><br>
+        <button
+                class="btn-open-Submit" onclick="toggleSubmit()">Open Submit
+        </button>
+        <p>When you click on the "Open Submit" button, you will get a "Popup Form"</p>
+        <p>Когда вы нажмете на кнопку "Открыть отправку", то получите "Всплывающую форму"</p>
+
+            <div id="SubmitOverlay"
+                 class="overlay-container">
+                <div class="Submit-box">
+                    <h2 style="color: green;">Popup Form</h2>
+                    <h2>The input format</h2>
+                    <p>Fill out the form and click "Submit" to send the data</p>
+                    <p>Заполните форму и нажмите "Submit" для отправки данных</p>
+                    <form class="form-container">
+                        <label class="form-label"
+                               for="name">
+                        Name:
+                        </label>
+                        <input class="form-input" type="text"
+                               placeholder="Enter Your Name"
+                               id="name" name="name" required>
+
+                        <label class="form-label"
+                               for="surname">
+                        Surname:
+                        </label>
+                        <input class="form-input" type="text"
+                               placeholder="Enter Your Surname"
+                               id="surname" name="surname" required>
+                        <br><br>
+                        <button class="btn-submit"
+                                type="submit">
+                        Submit
+                        </button>
+                    </form>
+                    <button class="btn-close-Submit"
+                            onclick="toggleSubmit()">
+                    Close
+                    </button>
+                    <p>Click "Close" to close the form</p>
+                    <p>Нажмите "Close" чтобы закрыть форму</p>
+                </div>
+            </div>
+    </form>
+    <script>
+        function toggleSubmit()
+        {
+            document.getElementById('name').value = document.getElementById('NameInput').value;
+            const overlay = document.getElementById('SubmitOverlay');
+            overlay.classList.toggle('show');
+        }
+         document.getElementById('surname').value = document.getElementById('SurnameInput').value;
+    </script>
+</body>
+</html>
